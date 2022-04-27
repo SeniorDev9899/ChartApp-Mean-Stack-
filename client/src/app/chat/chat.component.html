@@ -1,0 +1,134 @@
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+  
+      <!-- Sidebar -->
+      <app-layout style="background-color: #224abe;"></app-layout>
+      <!-- End of Sidebar -->
+  
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+  
+        <!-- Main Content -->
+        <div id="content">
+  
+          <!-- Topbar -->
+          <app-navibar></app-navibar>
+          <!-- End of Topbar -->
+  
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+  
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+              <h1 class="h3 mb-0 text-gray-800">Chat</h1>
+              <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+            </div>
+  
+            <!-- Content Row -->
+            <div class="row">
+  
+                <div class="col-xs-12 col-md-4 col-lg-4 chat">
+                    <div class="card contacts_card">
+					<div class="card-header">
+						<div class="input-group">
+							<input id="search_bar" type="text" placeholder="Search..." name="" class="form-control search">
+							<div class="input-group-prepend">
+								<span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="card-body contacts_body">
+						<ul class="contacts">
+							<li *ngFor="let chat of chatByIDList" [ngClass]="{'active': chat._id==selected_channel_id}" style="cursor: pointer" (click)="onClickChannel(chat._id)"> <!-- class="active" -->
+                                <div class="d-flex bd-highlight">
+                                    <div class="img_cont">
+                                        <img src="http://localhost:3000/images/group.jpg" class="rounded-circle user_img">
+                                    </div>
+                                    <div class="user_info">
+                                        <span>{{chat.name}}</span>
+                                        <!-- <p>5 members</p> -->
+                                    </div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="card-footer"></div>
+				</div></div>
+				<div class="col-xs-12 col-md-8 col-lg-8 chat">
+					<div class="card">
+						<div class="card-header msg_head">
+							<div class="d-flex bd-highlight">
+								<div class="img_cont">
+									<img src="{{userData.avator_url}}" class="rounded-circle user_img">
+									<span class="online_icon"></span>
+								</div>
+								<div class="user_info">
+									<span>{{userData.username}}</span>
+									<p>{{chatList.length}} Messages</p>
+								</div>
+							</div>
+						</div>
+						<div class="card-body msg_card_body">
+							<div *ngFor="let chat of chatList" [ngClass]="chat.from_id==userData._id?'d-flex justify-content-start mb-4':'d-flex justify-content-end mb-4'"> 
+								<div class="img_cont_msg" *ngIf="chat.from_id==userData._id">
+									<img src="{{userData.avator_url}}" class="rounded-circle user_img_msg">
+								</div>
+								<div class="msg_cotainer" *ngIf="chat.from_id==userData._id">
+									{{chat.message}}
+									<span class="msg_time">{{chat.send_at | momentPipe : 'YYYY-MM-DD HH:mm:ss'}}</span>
+								</div>
+								
+								<div class="msg_cotainer_send" *ngIf="chat.from_id!=userData._id">
+									{{chat.message}}
+									<span class="msg_time_send">{{chat.send_at | momentPipe : 'YYYY-MM-DD HH:mm:ss'}}</span>
+								</div>
+								<div class="img_cont_msg" *ngIf="chat.from_id!=userData._id">
+									<img src="{{chat.avator_url}}" class="rounded-circle user_img_msg">
+								</div>
+							</div>
+						</div>
+						<div class="card-footer">
+							<div class="input-group">
+								<!-- <div class="input-group-append">
+									<span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+								</div> -->
+								<textarea [(ngModel)]="message" name="message" class="form-control type_msg" placeholder="Type your message..."></textarea>
+								<div class="input-group-append">
+									<span class="input-group-text send_btn" (click)="onSendMessage()"><i class="fas fa-location-arrow"></i></span>
+								</div>
+							</div>
+						</div>
+					</div>
+                </div>
+                
+            </div>
+  
+          </div>
+          <!-- /.container-fluid -->
+  
+        </div>
+        <!-- End of Main Content -->
+  
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright &copy; Chat App 2019</span>
+            </div>
+          </div>
+        </footer>
+        <!-- End of Footer -->
+  
+      </div>
+      <!-- End of Content Wrapper -->
+  
+    </div>
+    <!-- End of Page Wrapper -->
+  
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>   
+</body>
